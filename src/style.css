@@ -16,15 +16,60 @@ body {
   color: rgb(255, 255, 255);
 }
 
+/* ----------------------------SCROLL BAR---------------------------------------- */
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(28, 113, 223, 0.76);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #3289db;
+  border-radius: 10px;
+}
+
 /* ----------------------NAVBAR----------------------------- */
 .navbar {
   padding: 1% 2%;
   border-bottom: 1px solid #84b7ff;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  justify-content: space-between;
 }
 
 .brand-name {
   font-size: 1rem;
+}
+
+.search-bar {
+  background: rgba(231, 231, 231, 0.3);
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 3px;
+  font-size: 1rem;
+  padding: 0.5em;
+}
+
+.search-icon {
+  padding: 0.5em;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 4px;
+}
+
+.search-icon:hover {
+  background-color: rgba(231, 231, 231, 0.3);
+}
+
+::placeholder {
+  color: rgba(241, 240, 240, 0.705);
 }
 
 /* -------------------WEATHER SUMMARY------------------------------ */
@@ -109,5 +154,3 @@ body {
 .hourly-time {
   margin: 1em 0;
 }
-
-
