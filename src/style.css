@@ -31,13 +31,60 @@ body {
 /* -------------------WEATHER SUMMARY------------------------------ */
 
 .weather-summary {
-  padding: 5% 15%;
+  margin: 3% 15%;
 }
 
 .city-name {
-  font-size: 3rem;
+  font-size: 2.6rem;
 }
 
 .today-date {
   font-size: 1.3rem;
+}
+
+.summary-container {
+  margin: 5% 2%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* ----TODAY INFO---- */
+
+.today-info {
+  font-size: 6rem;
+  position: relative;
+  flex-basis: 50%;
+  border-right: 1px solid #84b7ff;
+}
+
+.today-temp-word {
+  font-size: 1.5rem;
+  position: absolute;
+  left: 30%;
+}
+
+/* ------TODAY-SUMMARY----- */
+
+.today-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-content: space-around;
+  flex-basis: 40%;
+}
+
+.today-summary-info {
+  font-size: 1.8rem;
+  margin-bottom: .2em;
+}
+
+.today-summary-label {
+  font-size: 1.1rem;
+  font-weight: 200;
+  color: rgb(223, 221, 221);
+}
+
+.summary-item:nth-child(2n + 3),
+.summary-item:nth-child(3n + 2),
+.summary-item:nth-child(3n + 3) {
+  margin-top: 10px;
 }
