@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Hubballi", cursive;
+  background-image: linear-gradient(
+    to bottom,
+    #4561df,
+    #2c77e0,
+    #3289db,
+    #4f99d3,
+    #72a6c9
+  );
+  height: 100vh;
+  color: rgb(255, 255, 255);
+}
+
+/* ----------------------NAVBAR----------------------------- */
+.navbar {
+  padding: 1% 2%;
+  border-bottom: 1px solid #84b7ff;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.brand-name {
+  font-size: 1rem;
+}
+
+/* -------------------WEATHER SUMMARY------------------------------ */
+
+.weather-summary {
+  padding: 5% 15%;
+}
+
+.city-name {
+  font-size: 3rem;
+}
+
+.today-date {
+  font-size: 1.3rem;
+}
