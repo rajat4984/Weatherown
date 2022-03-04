@@ -110,13 +110,33 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
 
 /***/ }),
 
+/***/ "./src/Components/getAngle.js":
+/*!************************************!*\
+  !*** ./src/Components/getAngle.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getAngle\": () => (/* binding */ getAngle)\n/* harmony export */ });\nasync function getAngle(API_KEY,city,angles){\r\n    try{\r\n        const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&&appid=${API_KEY}`\r\n        let response = await fetch(url,{mode:\"cors\"})\r\n        let data = await response.json()\r\n        angles.push(data[0].lat,data[0].lon)\r\n        return angles;\r\n    }\r\n    catch(err){\r\n        console.log(\"Error occured in getAngle.js \" + err)\r\n    }\r\n   \r\n    // console.log()\r\n\r\n\r\n}\r\n\r\n\n\n//# sourceURL=webpack://weatherown/./src/Components/getAngle.js?");
+
+/***/ }),
+
+/***/ "./src/Components/getDailyWeather.js":
+/*!*******************************************!*\
+  !*** ./src/Components/getDailyWeather.js ***!
+  \*******************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"getDailyWeather\": () => (/* binding */ getDailyWeather)\n/* harmony export */ });\nasync function getDailyWeather(API_KEY, lat, long) {\r\n  try {\r\n    let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${long}&exclude=current,hourly,minutely&units=metric&appid=${API_KEY}`;\r\n    const response = await fetch(url, { mode: \"cors\" });\r\n    let data = await response.json();\r\n    return data;\r\n  } catch (err) {\r\n    console.log(\"Error occured at getDailyWeather.js \" + err);\r\n  }\r\n}\r\n\r\n\r\n\n\n//# sourceURL=webpack://weatherown/./src/Components/getDailyWeather.js?");
+
+/***/ }),
+
 /***/ "./src/app.js":
 /*!********************!*\
   !*** ./src/app.js ***!
   \********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n\n\n//# sourceURL=webpack://weatherown/./src/app.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _Components_getAngle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Components/getAngle */ \"./src/Components/getAngle.js\");\n/* harmony import */ var _Components_getDailyWeather__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Components/getDailyWeather */ \"./src/Components/getDailyWeather.js\");\n\r\n\r\n\r\n\r\nconst API_KEY = \"170e7d85c14723782ac20964a574ef47\";\r\n\r\nconst btn = document.querySelector(\"button\");\r\nconst input = document.querySelector(\"input\");\r\nconst p = document.querySelector(\".para\")\r\n\r\nbtn.addEventListener(\"click\", () => {\r\n  let city = input.value;\r\n  let angles = [];\r\n\r\n  (0,_Components_getAngle__WEBPACK_IMPORTED_MODULE_1__.getAngle)(API_KEY, city, angles).then((arr) => {\r\n    let lat = parseInt(arr[0]);\r\n    let long = parseInt(arr[1]);\r\n    (0,_Components_getDailyWeather__WEBPACK_IMPORTED_MODULE_2__.getDailyWeather)(API_KEY, lat, long).then((weatherData) => {\r\n     let todayWeather = weatherData.daily[0];\r\n     let weeklyWeather = weatherData.daily.splice(1,7)\r\n     p.innerText = `todays temperature is = ${todayWeather.temp.day}\r\n                    weekly weather is ${weeklyWeather}`\r\n    });\r\n  });\r\n});\r\n\n\n//# sourceURL=webpack://weatherown/./src/app.js?");
 
 /***/ })
 
