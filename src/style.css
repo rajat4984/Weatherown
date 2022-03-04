@@ -132,7 +132,8 @@ body {
 .today-hourly-weather {
   margin-top: 12%;
 }
-.hourly-heading {
+.hourly-heading,
+.next-week-heading {
   font-size: 1.8rem;
   margin-bottom: 3%;
 }
@@ -153,4 +154,32 @@ body {
 .hourly-icon,
 .hourly-time {
   margin: 1em 0;
+}
+
+/* -----------------------NEXT WEEK ------------------------------ */
+
+.next-week-container {
+  margin: 10% 0;
+}
+
+.next-week-card {
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: space-between;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 1em;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
+
+.week-card-day-label,
+.week-card-high-label,
+.week-card-low-label,
+.week-card-wind-label,
+.week-card-rain-label {
+    margin-top: .5em;
+    font-size: 1.1rem;
+    font-weight: 200;
+    color: rgb(223, 221, 221);
+
 }
