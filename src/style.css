@@ -13,7 +13,6 @@ body {
     #4f99d3,
     #72a6c9
   );
-  height: 100vh;
   color: rgb(255, 255, 255);
 }
 
@@ -30,7 +29,7 @@ body {
 
 /* -------------------WEATHER SUMMARY------------------------------ */
 
-.weather-summary {
+.app-content {
   margin: 3% 15%;
 }
 
@@ -70,11 +69,12 @@ body {
   grid-template-columns: repeat(3, 1fr);
   justify-content: space-around;
   flex-basis: 40%;
+  margin-top: 1em;
 }
 
 .today-summary-info {
   font-size: 1.8rem;
-  margin-bottom: .2em;
+  margin-bottom: 0.2em;
 }
 
 .today-summary-label {
@@ -83,8 +83,31 @@ body {
   color: rgb(223, 221, 221);
 }
 
-.summary-item:nth-child(2n + 3),
-.summary-item:nth-child(3n + 2),
-.summary-item:nth-child(3n + 3) {
-  margin-top: 10px;
+/* ---------------------HOURLY WEATHER---------------------- */
+.today-hourly-weather {
+  margin-top: 12%;
 }
+.hourly-heading {
+  font-size: 1.8rem;
+  margin-bottom: 3%;
+}
+.hourly-weather-cards {
+  display: flex;
+  justify-content: space-between;
+}
+
+.hourly-weather-card {
+  font-size: 1.6rem;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0 2em;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.hourly-temp,
+.hourly-icon,
+.hourly-time {
+  margin: 1em 0;
+}
+
+
