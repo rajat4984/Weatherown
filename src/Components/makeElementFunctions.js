@@ -1,6 +1,4 @@
-import format from "date-fns/format";
-
-const getChangedTime = (timeInUnix) => {
+function getChangedTime(timeInUnix){
   let date = new Date(timeInUnix * 1000);
   let hours = date.getHours().toString();
   let minutes = date.getMinutes().toString();
@@ -40,7 +38,6 @@ function makeNextDays(weeklyWeather) {
   const nextWeekCards = document.querySelector(".next-week-cards");
   const weekdayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
   for (let i = 0; i < 5; i++) {
-    const weekUnixTime = weeklyWeather[i].dt
     const tommorrow = new Date();
     tommorrow.setDate(tommorrow.getDay()+i)
     const weekDay = tommorrow.getDay();
