@@ -119,8 +119,7 @@ body {
 
 .today-temp-word {
   font-size: 1.5rem;
-  position: absolute;
-  left: 30%;
+  text-align: left;
 }
 
 /* ------TODAY-SUMMARY----- */
