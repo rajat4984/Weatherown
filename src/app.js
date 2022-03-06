@@ -2,7 +2,11 @@ import "./style.css";
 import { getAngle } from "./Components/getAngle";
 import { getDailyWeather } from "./Components/getDailyWeather";
 import { format } from "date-fns";
-import { makeTodaySummary } from "./Components/makeElementFunctions";
+import {
+  makeTodaySummary,
+  getChangedTime,
+  makeNextHours,
+} from "./Components/makeElementFunctions";
 
 const API_KEY = "170e7d85c14723782ac20964a574ef47";
 let city = "Delhi";
@@ -28,15 +32,6 @@ searchIcon.addEventListener("click", () => {
   searchBarContainer.classList.remove("active");
 });
 
-// ---------------------------------NORMAL FUNCTIONS ---------------------------------
-const getChangedTime = (timeInUnix) => {
-  let date = new Date(timeInUnix * 1000);
-  let hours = date.getHours().toString();
-  let minutes = date.getMinutes().toString();
-  let formattedTime = hours + ":" + minutes.substr(-2);
-  return formattedTime;
-};
-
 // -----------------------------------FETCH FUNCTIONS-------------------------------------
 getAngle(API_KEY, city, angles).then((data) => {
   const angleData = data[0];
@@ -45,15 +40,16 @@ getAngle(API_KEY, city, angles).then((data) => {
 
   getDailyWeather(API_KEY, lat, long).then((weatherData) => {
     const todayWeatherArray = weatherData.daily[0];
-    const weeklyWeather = weatherData.daily.splice(1, 7);
+    const weeklyWeather = weatherData.daily.splice(1, 5);
+    console.log(weeklyWeather);
     const todayTempData = parseInt(todayWeatherArray.temp.day);
     const todayTempWordsData = todayWeatherArray.weather[0].main;
     const todayHighData = `${parseInt(todayWeatherArray.temp.max)} &deg;`;
     const todayLowData = `${parseInt(todayWeatherArray.temp.min)} &deg;`;
-    const todayWindSpeedData = parseInt(
-      (todayWeatherArray.wind_speed * 18) / 5 //to change from persecond to kmph
-    );
-    const todayHumidityData = parseInt(todayWeatherArray.humidity);
+    const todayWindSpeedData = `${parseInt(
+      (todayWeatherArray.wind_speed * 18) / 5
+    )}kmph`;
+    const todayHumidityData = `${parseInt(todayWeatherArray.humidity)}%`;
     const todaySunriseData = getChangedTime(todayWeatherArray.sunrise);
     const todaySunsetData = getChangedTime(todayWeatherArray.sunset);
 
@@ -74,9 +70,11 @@ getAngle(API_KEY, city, angles).then((data) => {
       "Humidity",
       "Sunset",
     ];
+    const hourlyWeather = weatherData.hourly.splice(1, 5);
 
-    makeTodaySummary(todaySummaryData, todaySummaryLabels);          //populates todaySummary elements in html
 
+    makeTodaySummary(todaySummaryData, todaySummaryLabels); //populates todaySummary elements in html
+    makeNextHours(hourlyWeather);
     cityName.innerText = `${angleData.name},${angleData.country}`;
     todayInfo.innerHTML = `<h2 class="today-temp"><i class="bi bi-cloud-sun"></i>${todayTempData}</h2>
     <p class="today-temp-word">${todayTempWordsData}</p>
