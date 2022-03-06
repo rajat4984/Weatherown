@@ -6,6 +6,7 @@ import {
   makeTodaySummary,
   getChangedTime,
   makeNextHours,
+  makeNextDays,
 } from "./Components/makeElementFunctions";
 
 const API_KEY = "170e7d85c14723782ac20964a574ef47";
@@ -41,8 +42,7 @@ getAngle(API_KEY, city, angles).then((data) => {
   getDailyWeather(API_KEY, lat, long).then((weatherData) => {
     const todayWeatherArray = weatherData.daily[0];
     const weeklyWeather = weatherData.daily.splice(1, 5);
-    console.log(weeklyWeather);
-    const todayTempData = parseInt(todayWeatherArray.temp.day);
+    const todayTempData = Math.ceil((weatherData.current.temp));
     const todayTempWordsData = todayWeatherArray.weather[0].main;
     const todayHighData = `${parseInt(todayWeatherArray.temp.max)} &deg;`;
     const todayLowData = `${parseInt(todayWeatherArray.temp.min)} &deg;`;
@@ -71,10 +71,10 @@ getAngle(API_KEY, city, angles).then((data) => {
       "Sunset",
     ];
     const hourlyWeather = weatherData.hourly.splice(1, 5);
-
-
+    
     makeTodaySummary(todaySummaryData, todaySummaryLabels); //populates todaySummary elements in html
-    makeNextHours(hourlyWeather);
+    makeNextHours(hourlyWeather);                           //populates next 5 hours element in html
+    makeNextDays(weeklyWeather);
     cityName.innerText = `${angleData.name},${angleData.country}`;
     todayInfo.innerHTML = `<h2 class="today-temp"><i class="bi bi-cloud-sun"></i>${todayTempData}</h2>
     <p class="today-temp-word">${todayTempWordsData}</p>

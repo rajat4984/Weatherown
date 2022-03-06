@@ -203,7 +203,7 @@ body {
 .week-card-high-label,
 .week-card-low-label,
 .week-card-wind-label,
-.week-card-rain-label {
+.week-card-humidity-label {
   margin-top: 0.5em;
   font-size: 1.1rem;
   font-weight: 200;

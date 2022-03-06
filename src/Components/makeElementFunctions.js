@@ -1,3 +1,5 @@
+import format from "date-fns/format";
+
 const getChangedTime = (timeInUnix) => {
   let date = new Date(timeInUnix * 1000);
   let hours = date.getHours().toString();
@@ -34,4 +36,47 @@ function makeNextHours(hourlyWeather) {
   }
 }
 
-export { makeTodaySummary, getChangedTime, makeNextHours };
+function makeNextDays(weeklyWeather) {
+  const nextWeekCards = document.querySelector(".next-week-cards");
+  const weekdayArray = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  for (let i = 0; i < 5; i++) {
+    const weekUnixTime = weeklyWeather[i].dt
+    const tommorrow = new Date();
+    tommorrow.setDate(tommorrow.getDay()+i)
+    const weekDay = tommorrow.getDay();
+    console.log(weekDay)
+    const weekTemp = parseInt(weeklyWeather[i].temp.day);
+    const weekHigh = parseInt(weeklyWeather[i].temp.max);
+    const weekLow = parseInt(weeklyWeather[i].temp.min);
+    const weekWind = `${parseInt((weeklyWeather[i].wind_speed * 18) / 5)}kmph`;
+    const weekHumidity = `${parseInt(weeklyWeather[i].humidity)}%`;
+    const nextWeekCard = document.createElement("div");
+
+    nextWeekCard.innerHTML = `<div class="next-week-card-item">
+    <p class="week-card-day">${weekdayArray[weekDay]}</p>
+    <p class="week-card-day-label">${weekTemp} &deg;</p>
+    </div>
+    <i class="bi bi-brightness-high hourly-icon"></i>
+    <div class="next-week-card-item">
+    <p class="week-card-high">${weekHigh} &deg;</p>
+    <p class="week-card-high-label">High</p>
+    </div>
+    <div class="next-week-card-item">
+    <p class="week-card-low">${weekLow} &deg;</p>
+    <p class="week-card-low-label">Low</p>
+    </div>
+    <div class="next-week-card-item">
+    <p class="week-card-wind">${weekWind}</p>
+    <p class="week-card-wind-label">Wind</p>
+    </div>
+    <div class="next-week-card-item">
+    <p class="week-card-humidity">${weekHumidity}</p>
+    <p class="week-card-humidity-label">Humidity</p>
+    </div>`;
+
+    nextWeekCard.classList.add("next-week-card");
+    nextWeekCards.appendChild(nextWeekCard);
+  }
+}
+
+export { makeTodaySummary, getChangedTime, makeNextHours, makeNextDays };
