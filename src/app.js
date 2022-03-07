@@ -24,18 +24,20 @@ const todayInfo = document.querySelector(".today-info");
 const searchBar = document.querySelector(".search-bar");
 const searchIcon = document.querySelector(".search-icon");
 const toggleSwitch = document.querySelector(".checkbox-container");
+const preLoader = document.querySelector("#preloader");
+console.log(preLoader)
 
 toggleSwitch.addEventListener("click", () => {
-  const city = cityName.textContent.split(",")[0]
+  const city = cityName.textContent.split(",")[0];
   getData(API_KEY, city, angles, getUnits());
 });
 
 const getUnits = () => {
-  if (toggleSwitch.checked) return"imperial";
+  if (toggleSwitch.checked) return "imperial";
   else return "metric";
 };
 
-// ----------------------HAMBURGER MENU FUNCTION---------------------------------
+// ----------------------EVENT LISTENER ---------------------------------
 hamburger.addEventListener("click", () => {
   hamburger.classList.toggle("active");
   searchBarContainer.classList.toggle("active");
@@ -100,6 +102,7 @@ async function getData(API_KEY, city, angles, units) {
       todayInfo.innerHTML = `<h2 class="today-temp"><i class="bi ${todayWeatherIconClass}"></i>${todayTempData}</h2>
     <p class="today-temp-word">${todayTempWordsData}</p>
     `;
+      preLoader.style.display = "none";
     });
   });
 }

@@ -37,6 +37,15 @@ body {
   border-radius: 10px;
 }
 
+#preloader{
+  background:rgb(18, 18, 18) url(86f6e7548fcdb3606871.gif) no-repeat center center;
+  background-size: 50%;
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  z-index: 100;
+}
+
 /* ----------------------NAVBAR----------------------------- */
 .navbar {
   padding: 1% 2%;
@@ -303,9 +312,13 @@ input:checked + .slider:before{
   color: #fff;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 920px) {
   html {
     font-size: 13px;
+  }
+
+  #preloader{
+    background-size: 100% ;
   }
 
   .app-content {
