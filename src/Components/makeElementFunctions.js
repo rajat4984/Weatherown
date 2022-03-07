@@ -27,8 +27,9 @@ function getChangedTime(timeInUnix) {
 }
 
 function makeTodaySummary(data, labels) {
+  const todaySummary = document.querySelector(".today-summary");
+  todaySummary.innerHTML = ""
   for (let i = 0; i < data.length; i++) {
-    const todaySummary = document.querySelector(".today-summary");
     const summaryItem = document.createElement("div");
     summaryItem.classList.add("summary-item");
     summaryItem.innerHTML = `   <p class="today-high today-summary-info">${data[i]}</p>
@@ -40,7 +41,7 @@ function makeTodaySummary(data, labels) {
 
 function makeNextHours(hourlyWeather) {
   const hourlyWeatherCards = document.querySelector(".hourly-weather-cards");
-  console.log()
+  hourlyWeatherCards.innerHTML = ""
   for (let i = 0; i < hourlyWeather.length; i++) {
     const hourlyWeatherCard = document.createElement("div");
     const time = getChangedTime(hourlyWeather[i].dt);
@@ -59,6 +60,7 @@ function makeNextHours(hourlyWeather) {
 
 function makeNextDays(weeklyWeather) {
   const nextWeekCards = document.querySelector(".next-week-cards");
+  nextWeekCards.innerHTML = ""
   const weekdayArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   for (let i = 0; i < 5; i++) {
     const tommorrow = new Date();
