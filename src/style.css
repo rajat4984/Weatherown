@@ -281,6 +281,10 @@ body {
   .today-info {
     border-right: 0;
   }
+  .today-temp-word {
+    margin-top: .5em;
+    text-align: center;
+  }
 
   .summary-container > div {
     margin: 1em 0;
