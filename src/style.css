@@ -47,6 +47,83 @@ body {
   font-size: 1rem;
 }
 
+/* Toggle Switch  */
+.toggle-switch{
+  display: flex;
+  align-items: center;
+}
+.fahrenheit,.celsius{
+  font-size: 1rem;
+  margin: 0 .3em;
+  font-weight: 200;
+  color: rgb(223, 221, 221);
+}
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 25px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+}
+
+input:checked + .slider{
+  background-color: #2196F3;
+}
+
+input:focus + .slider{
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before{
+  transform: translateX(26px);
+}
+
+/* round slider  */
+.slider.round{
+  border-radius: 34px;
+}
+
+.slider.round:before{
+  border-radius: 50%;
+}
+
+.search-bar-container{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.search-bar,.search-icon,.toggle-switch{
+  margin: 0 .5em;
+}
+
 .search-bar {
   background: rgba(231, 231, 231, 0.3);
   border: none;
@@ -173,7 +250,7 @@ body {
 
 .hourly-temp,
 .hourly-icon,
-.hourly-time{
+.hourly-time {
   margin: 1em 0;
 }
 
@@ -282,7 +359,7 @@ body {
     border-right: 0;
   }
   .today-temp-word {
-    margin-top: .5em;
+    margin-top: 0.5em;
     text-align: center;
   }
 
@@ -315,4 +392,3 @@ body {
     padding: 1em 1.5em;
   }
 }
-

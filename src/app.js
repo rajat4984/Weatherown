@@ -23,6 +23,17 @@ const today = format(new Date(), "	EEEE d MMMM");
 const todayInfo = document.querySelector(".today-info");
 const searchBar = document.querySelector(".search-bar");
 const searchIcon = document.querySelector(".search-icon");
+const toggleSwitch = document.querySelector(".checkbox-container");
+
+toggleSwitch.addEventListener("click", () => {
+  const city = cityName.textContent.split(",")[0]
+  getData(API_KEY, city, angles, getUnits());
+});
+
+const getUnits = () => {
+  if (toggleSwitch.checked) return"imperial";
+  else return "metric";
+};
 
 // ----------------------HAMBURGER MENU FUNCTION---------------------------------
 hamburger.addEventListener("click", () => {
@@ -32,19 +43,20 @@ hamburger.addEventListener("click", () => {
 
 searchIcon.addEventListener("click", () => {
   if (searchBar.value.length === 0) return;
-  getData(API_KEY, searchBar.value, angles);
+
+  getData(API_KEY, searchBar.value, angles, getUnits());
   hamburger.classList.remove("active");
   searchBarContainer.classList.remove("active");
 });
 
 // -----------------------------------FETCH FUNCTIONS-------------------------------------
-async function getData(API_KEY, city, angles) {
+async function getData(API_KEY, city, angles, units) {
   getAngle(API_KEY, city, angles).then((data) => {
     const angleData = data[0];
     const lat = parseInt(angleData.lat);
     const long = parseInt(angleData.lon);
 
-    getDailyWeather(API_KEY, lat, long).then((weatherData) => {
+    getDailyWeather(API_KEY, lat, long, units).then((weatherData) => {
       const todayWeatherArray = weatherData.daily[0];
       const weeklyWeather = weatherData.daily.splice(1, 5);
       const todayTempData = Math.ceil(weatherData.current.temp);
@@ -92,4 +104,4 @@ async function getData(API_KEY, city, angles) {
   });
 }
 
-getData(API_KEY,city,angles)
+getData(API_KEY, city, angles, getUnits());
