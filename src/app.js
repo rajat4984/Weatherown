@@ -25,7 +25,6 @@ const searchBar = document.querySelector(".search-bar");
 const searchIcon = document.querySelector(".search-icon");
 const toggleSwitch = document.querySelector(".checkbox-container");
 const preLoader = document.querySelector("#preloader");
-console.log(preLoader)
 
 toggleSwitch.addEventListener("click", () => {
   const city = cityName.textContent.split(",")[0];
@@ -52,59 +51,62 @@ searchIcon.addEventListener("click", () => {
 });
 
 // -----------------------------------FETCH FUNCTIONS-------------------------------------
-async function getData(API_KEY, city, angles, units) {
+function getData(API_KEY, city, angles, units) {
   getAngle(API_KEY, city, angles).then((data) => {
     const angleData = data[0];
-    const lat = parseInt(angleData.lat);
-    const long = parseInt(angleData.lon);
+    const lat = angleData.lat;
+    const long = angleData.lon;
+    
+      getDailyWeather(API_KEY, lat, long, units).then((weatherData) => {
+        const todayWeatherArray = weatherData.daily[0];
+        const weeklyWeather = weatherData.daily.splice(1, 5);
+        const todayTempData = parseInt(weatherData.current.temp);
+        const todayTempWordsData = todayWeatherArray.weather[0].main;
+        const todayHighData = `${parseInt(todayWeatherArray.temp.max)} &deg;`;
+        const todayLowData = `${parseInt(todayWeatherArray.temp.min)} &deg;`;
 
-    getDailyWeather(API_KEY, lat, long, units).then((weatherData) => {
-      const todayWeatherArray = weatherData.daily[0];
-      const weeklyWeather = weatherData.daily.splice(1, 5);
-      const todayTempData = Math.ceil(weatherData.current.temp);
-      const todayTempWordsData = todayWeatherArray.weather[0].main;
-      const todayHighData = `${parseInt(todayWeatherArray.temp.max)} &deg;`;
-      const todayLowData = `${parseInt(todayWeatherArray.temp.min)} &deg;`;
-      const todayWindSpeedData = `${parseInt(
-        (todayWeatherArray.wind_speed * 18) / 5
-      )}kmph`;
-      const todayHumidityData = `${parseInt(todayWeatherArray.humidity)}%`;
-      const todaySunriseData = getChangedTime(todayWeatherArray.sunrise);
-      const todaySunsetData = getChangedTime(todayWeatherArray.sunset);
-      const todayWeatherIconClass = getWeatherIconClass(
-        todayWeatherArray.weather[0].id
-      );
-      const todaySummaryData = [
-        todayHighData,
-        todayWindSpeedData,
-        todaySunriseData,
-        todayLowData,
-        todayHumidityData,
-        todaySunsetData,
-      ];
+        const todayWindSpeedData = `${parseInt(
+          (todayWeatherArray.wind_speed * 18) / 5
+        )}kmph`;
+        const todayHumidityData = `${parseInt(todayWeatherArray.humidity)}%`;
+        const todaySunriseData = getChangedTime(todayWeatherArray.sunrise);
+        const todaySunsetData = getChangedTime(todayWeatherArray.sunset);
+        const todayWeatherIconClass = getWeatherIconClass(
+          todayWeatherArray.weather[0].id
+        );
+        const todaySummaryData = [
+          todayHighData,
+          todayWindSpeedData,
+          todaySunriseData,
+          todayLowData,
+          todayHumidityData,
+          todaySunsetData,
+        ];
 
-      const todaySummaryLabels = [
-        "High",
-        "Wind",
-        "Sunrise",
-        "Low",
-        "Humidity",
-        "Sunset",
-      ];
-      const hourlyWeather = weatherData.hourly.splice(1, 5);
+        const todaySummaryLabels = [
+          "High",
+          "Wind",
+          "Sunrise",
+          "Low",
+          "Humidity",
+          "Sunset",
+        ];
 
-      makeTodaySummary(todaySummaryData, todaySummaryLabels); //populates todaySummary elements in html
-      makeNextHours(hourlyWeather); //populates next 5 hours element in html
-      makeNextDays(weeklyWeather);
+        
+        const hourlyWeather = weatherData.hourly.splice(1, 5);
 
-      todayDate.innerText = today;
-      cityName.innerText = `${angleData.name},${angleData.country}`;
-      todayInfo.innerHTML = `<h2 class="today-temp"><i class="bi ${todayWeatherIconClass}"></i>${todayTempData}</h2>
-    <p class="today-temp-word">${todayTempWordsData}</p>
-    `;
-      preLoader.style.display = "none";
-    });
-  });
+        makeTodaySummary(todaySummaryData, todaySummaryLabels,units); //populates todaySummary elements in html
+        makeNextHours(hourlyWeather); //populates next 5 hours element in html
+        makeNextDays(weeklyWeather,units);
+
+        todayDate.innerText = today;
+        cityName.innerText = `${angleData.name},${angleData.country}`;
+        todayInfo.innerHTML = `<h2 class="today-temp"><i class="bi ${todayWeatherIconClass}"></i>${todayTempData}</h2>
+      <p class="today-temp-word">${todayTempWordsData}</p>
+      `;
+        preLoader.style.display = "none";
+      })
+  })
 }
 
 getData(API_KEY, city, angles, getUnits());

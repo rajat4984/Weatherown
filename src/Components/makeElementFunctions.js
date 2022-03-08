@@ -26,9 +26,16 @@ function getChangedTime(timeInUnix) {
   return formattedTime;
 }
 
-function makeTodaySummary(data, labels) {
+function makeTodaySummary(data, labels,units) {
   const todaySummary = document.querySelector(".today-summary");
-  todaySummary.innerHTML = ""
+  let speedTag = "mph";
+  if (units === "imperial") {
+    let splittedData = data[1].split("k")
+    data[1] = splittedData[0] + splittedData[1]
+  } else {
+    speedTag = "kmph"
+  }
+  todaySummary.innerHTML = "";
   for (let i = 0; i < data.length; i++) {
     const summaryItem = document.createElement("div");
     summaryItem.classList.add("summary-item");
@@ -41,13 +48,14 @@ function makeTodaySummary(data, labels) {
 
 function makeNextHours(hourlyWeather) {
   const hourlyWeatherCards = document.querySelector(".hourly-weather-cards");
-  hourlyWeatherCards.innerHTML = ""
+  hourlyWeatherCards.innerHTML = "";
   for (let i = 0; i < hourlyWeather.length; i++) {
     const hourlyWeatherCard = document.createElement("div");
     const time = getChangedTime(hourlyWeather[i].dt);
     const temp = parseInt(hourlyWeather[i].temp);
-    const weatherIconClass = getWeatherIconClass(hourlyWeather[i].weather[0].id)
-
+    const weatherIconClass = getWeatherIconClass(
+      hourlyWeather[i].weather[0].id
+    );
 
     hourlyWeatherCard.classList.add("hourly-weather-card");
     hourlyWeatherCard.innerHTML = `<p class="hourly-temp">${temp}&deg;</p>
@@ -58,9 +66,9 @@ function makeNextHours(hourlyWeather) {
   }
 }
 
-function makeNextDays(weeklyWeather) {
+function makeNextDays(weeklyWeather,units) {
   const nextWeekCards = document.querySelector(".next-week-cards");
-  nextWeekCards.innerHTML = ""
+  nextWeekCards.innerHTML = "";
   const weekdayArray = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   for (let i = 0; i < 5; i++) {
     const tommorrow = new Date();
@@ -69,11 +77,14 @@ function makeNextDays(weeklyWeather) {
     const weekTemp = parseInt(weeklyWeather[i].temp.day);
     const weekHigh = parseInt(weeklyWeather[i].temp.max);
     const weekLow = parseInt(weeklyWeather[i].temp.min);
-    const weekWind = `${parseInt((weeklyWeather[i].wind_speed * 18) / 5)}kmph`;
+    const weekWind = `${parseInt((weeklyWeather[i].wind_speed * 18) / 5)}`;
     const weekHumidity = `${parseInt(weeklyWeather[i].humidity)}%`;
     const nextWeekCard = document.createElement("div");
-    const weatherIconClass = getWeatherIconClass(weeklyWeather[i].weather[0].id)
-
+    const weatherIconClass = getWeatherIconClass(
+      weeklyWeather[i].weather[0].id
+    );
+    let speedTag;
+    units == "imperial"?speedTag = "mph" :speedTag = "kmph"
 
     nextWeekCard.innerHTML = `<div class="next-week-card-item">
     <p class="week-card-day">${weekdayArray[weekDay]}</p>
@@ -89,7 +100,7 @@ function makeNextDays(weeklyWeather) {
     <p class="week-card-low-label">Low</p>
     </div>
     <div class="next-week-card-item">
-    <p class="week-card-wind">${weekWind}</p>
+    <p class="week-card-wind">${weekWind}${speedTag}</p>
     <p class="week-card-wind-label">Wind</p>
     </div>
     <div class="next-week-card-item">
