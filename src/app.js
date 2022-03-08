@@ -60,7 +60,7 @@ function getData(API_KEY, city, angles, units) {
       getDailyWeather(API_KEY, lat, long, units).then((weatherData) => {
         const todayWeatherArray = weatherData.daily[0];
         const weeklyWeather = weatherData.daily.splice(1, 5);
-        const todayTempData = parseInt(weatherData.current.temp);
+        const todayTempData = Math.ceil(weatherData.current.temp);
         const todayTempWordsData = todayWeatherArray.weather[0].main;
         const todayHighData = `${parseInt(todayWeatherArray.temp.max)} &deg;`;
         const todayLowData = `${parseInt(todayWeatherArray.temp.min)} &deg;`;
