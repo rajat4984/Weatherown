@@ -3,7 +3,7 @@ async function getAngle(API_KEY, city) {
   searchBar.style.border = ""
   searchBar.placeholder = "New Delhi";
   try {
-    const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
+    const url = `https://cors-anywhere.herokuapp.com/http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${API_KEY}`;
     const response = await fetch(url, { mode: "cors" });
     const data = await response.json();
     if (data.length !== 0) {
